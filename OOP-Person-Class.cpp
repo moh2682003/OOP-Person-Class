@@ -12,7 +12,12 @@ class clsPerson
 
 public:
 
-	clsPerson(int ID , string FirstName , string LastName , string Email , string Phone)
+	clsPerson()
+	{
+
+	}
+
+	clsPerson(int ID, string FirstName, string LastName, string Email, string Phone)
 	{
 		_ID = ID;
 		_FirstName = FirstName;
@@ -66,20 +71,20 @@ public:
 	{
 		return _email;
 	}
-
 	__declspec(property(get = getEmail, put = setEmail)) string Email;
 
+	
 	void setPhoneNumber(string Phone)
 	{
 		_Phone = Phone;
 	}
 
-	string getPhoneNumber()
+	string getPhone()
 	{
 		return _Phone;
 	}
 
-	__declspec(property (get = getPhoneNumber, put = setPhoneNumber)) string PhoneNumber;
+	__declspec(property (get = getPhone, put = setPhone)) string PhoneNumber;
 
 	void SendEmail(string Subject, string Body)
 	{
@@ -96,7 +101,7 @@ public:
 		cout << "\n";
 	}
 
-	void Print()
+	virtual void Print()
 	{
 		cout << "Info\n";
 		cout << "---------------------------\n";
@@ -111,14 +116,136 @@ public:
 	}
 };
 
+class clsEmployee : public clsPerson
+{
 
+	string _Title;
+	string _Department;
+	int _Salary;
+
+public: 
+
+	clsEmployee()
+	{
+
+	}
+
+	clsEmployee(int ID,string FirstName, string LastName, string Email, string Phone, string Title, string Department, int Salary)
+		: clsPerson(ID,FirstName, LastName, Email, Phone)
+	{
+		_Title = Title;
+		_Department = Department;
+		_Salary = Salary;
+	}
+	void setTitle(string Title)
+	{
+		_Title = Title;
+	}
+
+	string getTitle()
+	{
+		return _Title;
+	}
+
+	__declspec(property(get = GetTitle, put = setTitle)) string Title;
+
+	void setSalary(int Salary)
+	{
+		_Salary = Salary;
+	}
+
+	int	getSalary()
+	{
+		return _Salary;
+	}
+	__declspec(property(get = getSalary, put = setSalary)) int Salary;
+
+	void setDepartment(string Department)
+	{
+		_Department = Department;
+	}
+
+	string getDepartment()
+	{
+		return _Department;
+	}
+
+	int CalculateAnnualSalary()
+	{
+		return _Salary * 12;
+	}
+
+	__declspec(property(get = getDepartment, put = setDepartment)) string Department;
+
+	void Print()
+	{
+		cout << "Info\n";
+		cout << "---------------------------\n";
+		cout << "ID        : " << GetID() << endl;
+		cout << "First Name: " << getFirstName() << endl;
+		cout << "Last Name : " << getLastName() << endl;
+		cout << "Full Name : " << FullName() << endl;
+		cout << "email     : " << getEmail() << endl;
+		cout << "Phone     : " << getPhone() << endl;
+		cout << "Title     : " << _Title << endl;
+		cout << "Department: " << _Department << endl;
+		cout << "Salary    : " << _Salary << endl;
+		cout << "Annual Salary : " << CalculateAnnualSalary() << endl;
+		cout << "------------------------------\n\n";
+	}
+
+};
+
+class clsProgramming : public  clsEmployee
+{
+	string _MainProgramming;
+
+public:
+
+
+	clsProgramming(int ID, string FirstName, string LastName, string Email, string Phone, string Title, string Department, int Salary, string MainProgramming)
+		: clsEmployee(ID, FirstName, LastName, Email, Phone, Title, Department, Salary)
+	{
+		_MainProgramming = MainProgramming;
+	}
+
+	void setMainProgramming(string MainProgramming)
+	{
+		_MainProgramming = MainProgramming;
+	}
+
+	string getMainProgramming()
+	{
+		return _MainProgramming;
+	}
+
+	__declspec(property(get = getMainProgramming, put = setMainProgramming)) string MainProgramming;
+
+	void Print()
+	{
+		
+		cout << "Info\n";
+		cout << "---------------------------\n";
+		cout << "ID        : " << GetID() << endl;
+		cout << "First Name: " << getFirstName() << endl;
+		cout << "Last Name : " << getLastName() << endl;
+		cout << "Full Name : " << FullName() << endl;
+		cout << "email     : " << getEmail() << endl;
+		cout << "Phone     : " << getPhone() << endl;
+		cout << "Title     : " << getTitle() << endl;
+		cout << "Department: " << getDepartment() << endl;
+		cout << "Salary    : " << getSalary() << endl;
+		cout << "Main Programming : " << _MainProgramming << endl;
+		cout << "------------------------------\n\n";
+	}
+};
+
+class clsInternalTrainer : protected clsEmployee
+{
+
+};
 
 int main()
 {
-	clsPerson Person1(10, "Sayed", "AbdelHamed", "moh2682003.gmail.com", "01033454819");
 
-	Person1.Print();
-
-	Person1.SendEmail("Hi", "This Is Email");
-	Person1.sendMassage("This Is Massage");
 }
